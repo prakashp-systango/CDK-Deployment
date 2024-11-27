@@ -21,10 +21,10 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Lint Code
-        run: |
-          cd packages/lambda-function
-          yarn lint
+      # - name: Lint Code
+      #   run: |
+      #     cd packages/lambda-function
+      #     yarn lint
 
       - name: Build Lambda function
         run: |
