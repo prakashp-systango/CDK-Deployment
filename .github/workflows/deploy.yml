@@ -1,0 +1,52 @@
+name: Deploy CDK Stack
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint Code
+        run: |
+          cd packages/lambda-function
+          yarn lint
+
+      - name: Build Lambda function
+        run: |
+          cd packages/lambda-function
+          yarn build
+
+      - name: Run Tests
+        run: |
+          cd packages/lambda-function
+          yarn test
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: YOUR_AWS_REGION  # e.g., us-west-2
+
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk
+
+      - name: Deploy CDK stack
+        run: |
+          cd packages/infrastructure
+          cdk deploy --require-approval never
