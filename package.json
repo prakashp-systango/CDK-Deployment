@@ -4,5 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "private": true, 
-  "workspaces": [ "packages/lambda-function", "packages/infrastructure" ] 
+  "workspaces": [ "packages/lambda-function", "packages/infrastructure" ] ,
+  "engines": {
+    "node": ">=18.18.0"
+  }
 }

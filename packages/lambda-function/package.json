@@ -5,8 +5,11 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint 'src/**/*.ts'",
+    "lint": "eslint src/**/*.ts",
     "test": "jest"
+  },
+  "engines": {
+    "node": ">=18.18.0"
   },
   "dependencies": {
     "@types/node": "^22.10.0",
